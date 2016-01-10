@@ -81,3 +81,15 @@ def get_10_by_time():
         else:
             last_10_by_time.append(data[i])
     return last_10_by_time
+
+
+def post_event(request):
+    """Add event from request to storage
+
+    Args:
+        request: HTTP request
+
+    Returns:
+        HTTP response with json data
+    """
+    pass
