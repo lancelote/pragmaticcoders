@@ -1,6 +1,6 @@
 import re
 
-from .models import Event
+from .models import Event, data
 
 PATTERN = re.compile(r'^([\w\s]+) #(\w+) @(\w+)$')
 
@@ -29,7 +29,7 @@ def add_event_to_storage(event):
     Returns:
         None
     """
-    return event
+    data.append(event)
 
 
 def get_10_by_category(category):
