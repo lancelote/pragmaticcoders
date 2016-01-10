@@ -59,7 +59,13 @@ def get_10_by_person(person):
     Returns:
         list: last 10 events by given person
     """
-    return person
+    last_10_by_person = []
+    for i in range(len(data) - 1, -1, -1):
+        if len(last_10_by_person) == 10:
+            break
+        if data[i].person == person:
+            last_10_by_person.append(data[i])
+    return last_10_by_person
 
 
 def get_10_by_time():
@@ -68,4 +74,10 @@ def get_10_by_time():
     Returns:
         list: last 10 events
     """
-    pass
+    last_10_by_time = []
+    for i in range(len(data) - 1, -1, -1):
+        if len(last_10_by_time) == 10:
+            break
+        else:
+            last_10_by_time.append(data[i])
+    return last_10_by_time
