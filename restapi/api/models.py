@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name, too-few-public-methods
+
 from datetime import datetime
 
 # ToDo : Switch to normal DB

@@ -2,7 +2,7 @@ import re
 
 from .models import Event
 
-parse_event_pattern_re = re.compile(r'^([\w\s]+) #(\w+) @(\w+)$')
+PATTERN = re.compile(r'^([\w\s]+) #(\w+) @(\w+)$')
 
 
 def parse_event(event):
@@ -16,7 +16,7 @@ def parse_event(event):
     """
     # ToDo : Multiple categories and persons
     # ToDO : Incorrect input case
-    text, category, person = re.match(parse_event_pattern_re, event).groups()
+    text, category, person = re.match(PATTERN, event).groups()
     return Event(text, category, person)
 
 
@@ -29,7 +29,7 @@ def add_event_to_storage(event):
     Returns:
         None
     """
-    pass
+    return event
 
 
 def get_10_by_category(category):
@@ -41,7 +41,7 @@ def get_10_by_category(category):
     Returns:
         list: last 10 events by given category
     """
-    pass
+    return category
 
 
 def get_10_by_person(person):
@@ -53,7 +53,7 @@ def get_10_by_person(person):
     Returns:
         list: last 10 events by given person
     """
-    pass
+    return person
 
 
 def get_10_by_time():
