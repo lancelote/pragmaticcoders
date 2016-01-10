@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 from django.conf.urls import url
 from . import views
 
