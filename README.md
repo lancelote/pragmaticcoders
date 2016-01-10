@@ -35,3 +35,4 @@
 # Get 10 last by Time
 
 - URL: /api/time/
+- HTTP Method: GET
