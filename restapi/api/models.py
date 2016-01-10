@@ -12,4 +12,4 @@ class Event(object):
         self.text = text
         self.category = category
         self.person = person
-        self.time = datetime.now()
+        self.time = datetime.now().strftime('%m/%d/%Y - %H:%M:%S')

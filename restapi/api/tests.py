@@ -161,15 +161,54 @@ class TestGet10ByTime(unittest.TestCase):
 
 class APITest(TestCase):
 
+    def setUp(self):
+        self.content = 'application/json'
+        events = [
+            'text0 #category1 @person3',
+            'text1 #category1 @person1',
+            'text2 #category1 @person1',
+            'text3 #category1 @person1',
+            'text4 #category1 @person1',
+            'text5 #category1 @person1',
+            'text5 #category2 @person2',
+            'text6 #category2 @person1',
+            'text7 #category1 @person1',
+            'text8 #category1 @person1',
+            'text10 #category1 @person1',
+            'text11 #category1 @person1',
+            'text12 #category1 @person1',
+        ]
+        for event in events:
+            add_event_to_storage(parse_event(event))
+
     def test_post(self):
         url = '/api/event/'
-        content = 'application/json'
         event = json.dumps({'event': 'I just won a lottery #update @all'})
 
-        response = self.client.post(url, content_type=content, data=event)
+        response = self.client.post(url, content_type=self.content, data=event)
         self.assertEqual(response.status_code, 201)
 
         event_answer = json.loads(response.content.decode('utf-8'))
         self.assertEqual(event_answer['text'], 'I just won a lottery')
         self.assertEqual(event_answer['category'], 'update')
         self.assertEqual(event_answer['person'], 'all')
+
+    def test_last_10_by_category(self):
+        url = '/api/category/category1/'
+
+        response = self.client.get(url, content_type=self.content)
+        self.assertEqual(response.status_code, 200)
+
+        events = json.loads(response.content.decode('utf-8'))
+        correct = all([event['category'] == 'category1' for event in events])
+        to_old = any([event['text'] == 'text0' for event in events])
+
+        self.assertEqual(len(events), 10)
+        self.assertTrue(correct)
+        self.assertFalse(to_old)
+
+    def test_last_10_by_person(self):
+        pass
+
+    def test_last_10_by_time(self):
+        pass

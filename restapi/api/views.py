@@ -99,14 +99,17 @@ def post_event(request):
         event_request = json.loads(request.body.decode('utf-8'))
         event = parse_event(event_request['event'])
         add_event_to_storage(event)
-        answer = {
+        answer = json.dumps({
             'text': event.text,
             'category': event.category,
             'person': event.person,
-            'time': event.time.strftime('%m/%d/%Y - %H:%M:%S')
-        }
-        return HttpResponse(
-            json.dumps(answer),
-            content_type='application/json',
-            status=201
-        )
+            'time': event.time
+        })
+        return HttpResponse(answer, content_type='application/json', status=201)
+
+
+def last_10_by_category(request, category):
+    if request.method == 'GET':
+        events = get_10_by_category(category)
+        answer = json.dumps([event.__dict__ for event in events])
+        return HttpResponse(answer, content_type='application/json')
