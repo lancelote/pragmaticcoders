@@ -1,3 +1,5 @@
+[![Requirements Status](https://requires.io/github/lancelote/pragmaticcoders/requirements.svg?branch=master)](https://requires.io/github/lancelote/pragmaticcoders/requirements/?branch=master)
+
 # Add event
 
 - URL: /api/event/
