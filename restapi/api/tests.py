@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 
 import unittest
+import json
+
+from django.test import TestCase
 
 from .views import (
     parse_event, add_event_to_storage,
@@ -154,3 +157,19 @@ class TestGet10ByTime(unittest.TestCase):
         self.assertTrue(check_the_storage(first, last_10_by_time))
         self.assertTrue(check_the_storage(sample, last_10_by_time))
         self.assertTrue(check_the_storage(last, last_10_by_time))
+
+
+class APITest(TestCase):
+
+    def test_post(self):
+        url = '/api/event/'
+        content = 'application/json'
+        event = json.dumps({'event': 'I just won a lottery #update @all'})
+
+        response = self.client.post(url, content_type=content, data=event)
+        self.assertEqual(response.status_code, 201)
+
+        event_answer = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(event_answer['text'], 'I just won a lottery')
+        self.assertEqual(event_answer['category'], 'update')
+        self.assertEqual(event_answer['person'], 'all')
