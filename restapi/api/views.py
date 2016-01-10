@@ -109,7 +109,36 @@ def post_event(request):
 
 
 def last_10_by_category(request, category):
+    """Return last 10 events by given category as HTTP response with json
+
+    Args:
+        request: HTTP request
+        category (str): Event category to search for
+
+    Returns:
+        HTTP response with json data
+    """
     if request.method == 'GET':
         events = get_10_by_category(category)
         answer = json.dumps([event.__dict__ for event in events])
         return HttpResponse(answer, content_type='application/json')
+
+
+def last_10_by_person(request, person):
+    """Return last 10 events by given person as HTTP response with json
+
+    Args:
+        request: HTTP request
+        person (str): Event person to search for
+
+    Returns:
+        HTTP response with json data
+    """
+    if request.method == 'GET':
+        events = get_10_by_person(person)
+        answer = json.dumps([event.__dict__ for event in events])
+        return HttpResponse(answer, content_type='application/json')
+
+
+def last_10_by_time(request):
+    pass

@@ -164,7 +164,7 @@ class APITest(TestCase):
     def setUp(self):
         self.content = 'application/json'
         events = [
-            'text0 #category1 @person3',
+            'text0 #category1 @person1',
             'text1 #category1 @person1',
             'text2 #category1 @person1',
             'text3 #category1 @person1',
@@ -208,7 +208,18 @@ class APITest(TestCase):
         self.assertFalse(to_old)
 
     def test_last_10_by_person(self):
-        pass
+        url = '/api/person/person1/'
+
+        response = self.client.get(url, content_type=self.content)
+        self.assertEqual(response.status_code, 200)
+
+        events = json.loads(response.content.decode('utf-8'))
+        correct = all([event['person'] == 'person1' for event in events])
+        to_old = any([event['text'] == 'text0' for event in events])
+
+        self.assertEqual(len(events), 10)
+        self.assertTrue(correct)
+        self.assertFalse(to_old)
 
     def test_last_10_by_time(self):
         pass
