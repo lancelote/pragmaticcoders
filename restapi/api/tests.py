@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 import unittest
 
 from .views import (
@@ -7,7 +9,7 @@ from .views import (
 from .models import data
 
 
-def check_the_storage(item_to_search, storage=data):
+def check_the_storage(item_to_search, storage=None):
     """Check if the in-memory storage has the item
 
     Args:
@@ -17,12 +19,12 @@ def check_the_storage(item_to_search, storage=data):
     Returns:
         bool: True or False
     """
+    if storage is None:
+        storage = data
     for event in storage:
-        if all((
-            event.text == item_to_search.text,
-            event.category == item_to_search.category,
-            event.person == item_to_search.person
-        )):
+        if all((event.text == item_to_search.text,
+                event.category == item_to_search.category,
+                event.person == item_to_search.person)):
             return True
     return False
 
