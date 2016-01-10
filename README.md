@@ -1,4 +1,5 @@
 [![Requirements Status](https://requires.io/github/lancelote/pragmaticcoders/requirements.svg?branch=master)](https://requires.io/github/lancelote/pragmaticcoders/requirements/?branch=master)
+[![Build Status](https://travis-ci.org/lancelote/pragmaticcoders.svg?branch=master)](https://travis-ci.org/lancelote/pragmaticcoders)
 
 # Add event
 

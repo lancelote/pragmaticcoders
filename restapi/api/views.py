@@ -10,6 +10,8 @@ def parse_event(event):
     Returns:
         Event: Event instance
     """
+    # ToDo : Multiple categories and persons
+    # ToDO : Incorrect input case
     pass
 
 
