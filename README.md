@@ -21,7 +21,7 @@
     "text": "I just won a lottery",
     "category": "update",
     "person": "all",
-    "time": "01.01.2016 - 12:00"
+    "time": "04.08.2015 - 16:23:42"
 }
 ```
 
@@ -29,6 +29,26 @@
 
 - URL: /api/category/<category_name>/
 - HTTP Method: GET
+
+## Example Response
+
+```
+[
+    {
+        "text": "Hello world",
+        "category": "update",
+        "person": "world",
+        "time": "04.08.2015 - 16:23:42"
+    },
+    {
+        "text": "I just won a lottery",
+        "category": "update",
+        "person": "all",
+        "time": "01.01.2016 - 12:00:00"
+    },
+    ...
+]
+```
 
 # Get 10 last by Person
 
