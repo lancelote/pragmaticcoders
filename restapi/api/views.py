@@ -141,4 +141,15 @@ def last_10_by_person(request, person):
 
 
 def last_10_by_time(request):
-    pass
+    """Return last 10 events by time as HTTP response with json
+
+    Args:
+        request: HTTP request
+
+    Returns:
+        HTTP response with json data
+    """
+    if request.method == 'GET':
+        events = get_10_by_time()
+        answer = json.dumps([event.__dict__ for event in events])
+        return HttpResponse(answer, content_type='application/json')

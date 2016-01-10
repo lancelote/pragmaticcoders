@@ -222,4 +222,14 @@ class APITest(TestCase):
         self.assertFalse(to_old)
 
     def test_last_10_by_time(self):
-        pass
+        url = '/api/time/'
+
+        response = self.client.get(url, content_type=self.content)
+        self.assertEqual(response.status_code, 200)
+
+        events = json.loads(response.content.decode('utf-8'))
+        old_event_text = ['text0', 'text1', 'text2']
+        to_old = any([event['text'] in old_event_text for event in events])
+
+        self.assertEqual(len(events), 10)
+        self.assertFalse(to_old)
