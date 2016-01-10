@@ -1,4 +1,8 @@
+import re
+
 from .models import Event
+
+parse_event_pattern_re = re.compile(r'^([\w\s]+) #(\w+) @(\w+)$')
 
 
 def parse_event(event):
@@ -12,7 +16,8 @@ def parse_event(event):
     """
     # ToDo : Multiple categories and persons
     # ToDO : Incorrect input case
-    pass
+    text, category, person = re.match(parse_event_pattern_re, event).groups()
+    return Event(text, category, person)
 
 
 def add_event_to_storage(event):
