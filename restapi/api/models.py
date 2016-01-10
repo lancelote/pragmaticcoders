@@ -1,3 +1,2 @@
-from django.db import models
-
-# Create your models here.
+# ToDo : Switch to normal DB
+data = []  # In-memory temporary storage
