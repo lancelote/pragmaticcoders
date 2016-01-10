@@ -41,7 +41,13 @@ def get_10_by_category(category):
     Returns:
         list: last 10 events by given category
     """
-    return category
+    last_10_by_category = []
+    for i in range(len(data) - 1, -1, -1):
+        if len(last_10_by_category) == 10:
+            break
+        if data[i].category == category:
+            last_10_by_category.append(data[i])
+    return last_10_by_category
 
 
 def get_10_by_person(person):
