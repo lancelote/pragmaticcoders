@@ -27,7 +27,7 @@
 
 # Get 10 last by Category
 
-- URL: /api/category/<category_name>/
+- URL: /api/category/category_name/
 - HTTP Method: GET
 
 ## Example Response
@@ -52,7 +52,7 @@
 
 # Get 10 last by Person
 
-- URL: /api/person/<person_name>/
+- URL: /api/person/person_name/
 - HTTP Method: GET
 
 # Get 10 last by Time
