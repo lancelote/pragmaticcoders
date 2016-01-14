@@ -18,8 +18,10 @@ def parse_event(event):
         Event: Event instance
     """
     # ToDo : Multiple categories and persons
-    # ToDO : Incorrect input case
-    text, category, person = re.match(PATTERN, event).groups()
+    try:
+        text, category, person = re.match(PATTERN, event).groups()
+    except AttributeError:
+        return False
     return Event(text, category, person)
 
 
@@ -96,16 +98,28 @@ def post_event(request):
         HTTP response with json data
     """
     if request.method == 'POST':
-        event_request = json.loads(request.body.decode('utf-8'))
-        event = parse_event(event_request['event'])
-        add_event_to_storage(event)
-        answer = json.dumps({
-            'text': event.text,
-            'category': event.category,
-            'person': event.person,
-            'time': event.time
-        })
-        return HttpResponse(answer, content_type='application/json', status=201)
+        content_type = 'application/json'
+        try:
+            event_request = json.loads(request.body.decode('utf-8'))
+        except ValueError:
+            answer = json.dumps({'error': 'Please provide event JSON'})
+            status_code = 400
+        else:
+            event = parse_event(event_request['event'])
+
+            if event is False:
+                answer = json.dumps({'error': 'Wrong event format'})
+                status_code = 400
+            else:
+                add_event_to_storage(event)
+                answer = json.dumps({
+                    'text': event.text,
+                    'category': event.category,
+                    'person': event.person,
+                    'time': event.time
+                })
+                status_code = 201
+        return HttpResponse(answer, content_type, status_code)
 
 
 def last_10_by_category(request, category):

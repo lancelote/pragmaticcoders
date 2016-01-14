@@ -193,6 +193,25 @@ class APITest(TestCase):
         self.assertEqual(event_answer['category'], 'update')
         self.assertEqual(event_answer['person'], 'all')
 
+    def test_incorrect_post_format(self):
+        url = '/api/event/'
+        event = json.dumps({'event': 'Hello world!'})
+
+        response = self.client.post(url, content_type=self.content, data=event)
+        self.assertEqual(response.status_code, 400)
+
+        event_answer = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(event_answer['error'], 'Wrong event format')
+
+    def test_post_without_json(self):
+        url = '/api/event/'
+
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 400)
+
+        answer = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(answer['error'], 'Please provide event JSON')
+
     def test_last_10_by_category(self):
         url = '/api/category/category1/'
 
